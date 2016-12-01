@@ -1,0 +1,19 @@
+@import "variables";
+
+.small(@rules) {
+  @media screen and (max-width: @small-break) {
+    @rules();
+  }
+}
+
+.medium(@rules) {
+  @media screen and (max-width: @medium-break) {
+    @rules();
+  }
+}
+
+.large(@rules) {
+  @media screen and (min-width: @small-break) {
+    @rules();
+  }
+}

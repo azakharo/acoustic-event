@@ -1,0 +1,130 @@
+.Grid {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Grid-cell {
+  flex: 1;
+}
+
+.Grid--flexCells > .Grid-cell {
+  display: flex;
+}
+
+.Grid--top {
+  align-items: flex-start;
+}
+
+.Grid--bottom {
+  align-items: flex-end;
+}
+
+.Grid--center {
+  align-items: center;
+}
+
+.Grid--justifyCenter {
+  justify-content: center;
+}
+
+.Grid-cell--top {
+  align-self: flex-start;
+}
+
+.Grid-cell--bottom {
+  align-self: flex-end;
+}
+
+.Grid-cell--center {
+  align-self: center;
+}
+
+.Grid-cell--autoSize {
+  flex: none;
+}
+
+.Grid--fit > .Grid-cell {
+  flex: 1;
+}
+
+.Grid--full > .Grid-cell {
+  flex: 0 0 100%;
+}
+
+.Grid--1of2 > .Grid-cell {
+  flex: 0 0 50%;
+}
+
+.Grid--1of3 > .Grid-cell {
+  flex: 0 0 33.3333%;
+}
+
+.Grid--1of4 > .Grid-cell {
+  flex: 0 0 25%;
+}
+
+//===========================
+// grid cell sizes
+
+.Grid-cell-full {
+  flex: 1 1 100%;
+}
+
+.Grid-cell-1of2 {
+  flex: 1 1 50%;
+}
+
+.Grid-cell-1of3 {
+  flex: 1 1 33.3333%;
+}
+
+.Grid-cell-2of3 {
+  flex: 1 1 66.6666%;
+}
+
+.Grid-cell-1of8 {
+  flex: 1 1 12.5%;
+}
+
+.Grid-cell-1of4 {
+  flex: 1 1 25%;
+}
+
+.Grid-cell-3of4 {
+  flex: 1 1 75%;
+}
+
+
+.Grid-cell-fixed-full {
+  flex: 0 0 100%;
+}
+
+.Grid-cell-fixed-1of2 {
+  flex: 0 0 50%;
+}
+
+.Grid-cell-fixed-1of3 {
+  flex: 0 0 33.3333%;
+}
+
+.Grid-cell-fixed-2of3 {
+  flex: 0 0 66.6666%;
+}
+
+.Grid-cell-fixed-1of8 {
+  flex: 0 0 12.5%;
+}
+
+.Grid-cell-fixed-1of4 {
+  flex: 0 0 25%;
+}
+
+.Grid-cell-fixed-3of4 {
+  flex: 0 0 75%;
+}
+
+// grid cell sizes
+//===========================

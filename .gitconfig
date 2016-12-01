@@ -1,0 +1,8 @@
+[user]
+	email = alexey.zakharov@sarov-itc.ru
+	name = Alexey Zakharov
+[alias]
+	ci = commit -a
+	last = log -1 HEAD
+	st = status
+	purr = pull --rebase

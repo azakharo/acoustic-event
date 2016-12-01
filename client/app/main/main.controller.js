@@ -14,6 +14,7 @@ angular.module('projectsApp')
     // Startup code
 
     $scope.events = [];
+    $scope.OBJECT_NAME = "Объект 1";
 
     //=====================================================
 

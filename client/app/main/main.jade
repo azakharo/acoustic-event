@@ -5,8 +5,21 @@
       button.btn.btn-default(ng-click="onClearBtnClick()") Очистить протокол
   .page-content
     .event-list-container.p1(ng-show="events.length > 0")
-      .panel.panel-default(ng-repeat='event in events')
-        .panel-body Basic panel example {{event.id}}
+      .panel.panel-default.event-panel(ng-repeat='event in events')
+        .panel-body
+          .Grid.Grid--center.event-panel-row-mb1
+            .Grid-cell.bold Акустическая тревога
+            .Grid-cell {{ event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
+          .Grid.Grid--center.Grid--1of4.event-panel-row-mb1
+            .Grid-cell.bold Объект:
+            .Grid-cell {{ OBJECT_NAME }}
+            .Grid-cell.bold Устройство:
+            .Grid-cell {{ event.device }}
+          .Grid.Grid--center.Grid--1of4
+            .Grid-cell.bold Событие:
+            .Grid-cell {{ event.class }}
+            .Grid-cell.bold SNR:
+            .Grid-cell {{ event.snr | number : 2 }}
     .no-events-msg.text-xlarge.p1(ng-hide="events.length > 0") Нет событий
   footer.page-footer.text-center Copyright &copy; 2015-2016 &mdash;&nbsp;
     a(href="http://sarov-itc.ru/", target="_blank") ИТЦ Система-Саров

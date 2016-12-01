@@ -1,0 +1,31 @@
+.main-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.page-hdr, .page-footer {
+  flex: none;
+}
+
+.page-content {
+  flex: 1;
+  min-height: 400px;
+  overflow-y: auto;
+//  background: green;
+}
+
+.page-hdr {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: space-between;
+
+  background: #000000;
+  color: #ffffff;
+}
+
+.page-title, .page-buttons {
+  flex: none;
+}

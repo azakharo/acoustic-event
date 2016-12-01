@@ -7,15 +7,15 @@
     .event-list-container.p1(ng-show="events.length > 0")
       .panel.panel-default.event-panel(ng-repeat='event in events')
         .panel-body
-          .Grid.Grid--center.event-panel-row-mb1
-            .Grid-cell.bold Акустическая тревога
+          .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+            .Grid-cell.bold.nowrap Акустическая тревога
             .Grid-cell {{ event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
-          .Grid.Grid--center.Grid--1of4.event-panel-row-mb1
+          .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
             .Grid-cell.bold Объект:
             .Grid-cell {{ OBJECT_NAME }}
             .Grid-cell.bold Устройство:
             .Grid-cell {{ event.device }}
-          .Grid.Grid--center.Grid--1of4
+          .Grid.Grid--center.Grid--1of4.event-panel-row
             .Grid-cell.bold Событие:
             .Grid-cell {{ event.class }}
             .Grid-cell.bold SNR:

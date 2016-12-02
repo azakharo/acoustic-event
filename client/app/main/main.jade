@@ -2,7 +2,8 @@
   .page-hdr.p1
     .page-title.text-xlarge Система Акустического Мониторинга
     .page-buttons
-      button.btn.btn-default(ng-click="onClearBtnClick()") Очистить протокол
+      button.btn.btn-default(ng-click="onClearBtnClick()")
+        i.fa.fa-trash
   .page-content
     .event-list-container.p1(ng-show="events.length > 0")
       .panel.panel-default.event-panel(ng-repeat="event in events | orderBy:'timestamp':true",

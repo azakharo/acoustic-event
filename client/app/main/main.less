@@ -59,6 +59,10 @@
 
 .event-panel {
   min-width: 40rem;
+
+  .small({
+    min-width: 10rem !important;
+  });
 }
 
 .event-panel-row-mb1 {
@@ -67,6 +71,11 @@
 
 .event-panel-row {
   flex-wrap: nowrap !important;
+
+  .small({
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  });
 }
 
 .event-time {

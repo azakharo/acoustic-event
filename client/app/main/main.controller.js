@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectsApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
+  .controller('MainCtrl', function ($scope, $http, $timeout, socket) {
     ///////////////////////////////////////////////////////
     // Declarations
 
@@ -24,8 +24,28 @@ angular.module('projectsApp')
 
     $http.get('/api/events').success(function(events) {
       $scope.events = events;
-      socket.syncUpdates(MODEL_NAME, $scope.events);
+      socket.syncUpdates(MODEL_NAME, $scope.events, onNewEvent);
     });
+
+    function onNewEvent(socketEvent, event) {
+      if (socketEvent == 'created') {
+        event.isNew = true;
+        const elemSelector = `#event${event.id}.new-event-panel`;
+        const animClasses = 'animated flash infinite';
+        // apply the animation
+        $timeout(function () {
+          $(elemSelector).addClass(animClasses);
+        }, 0);
+        // remove animation
+        $timeout(function () {
+          $(elemSelector).removeClass(animClasses);
+          let animEvent = _.find($scope.events, ['id', event.id]);
+          if (animEvent) {
+            animEvent.isNew = false;
+          }
+        }, 5000);
+      }
+    }
 
     $scope.onClearBtnClick = function () {
       let events = angular.copy($scope.events);

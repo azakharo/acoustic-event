@@ -9,7 +9,7 @@
         .panel-body
           .Grid.Grid--center.event-panel-row.event-panel-row-mb1
             .Grid-cell.bold.nowrap Акустическая тревога
-            .Grid-cell {{ event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
+            .Grid-cell.event-time {{ event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
           .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
             .Grid-cell.bold Объект:
             .Grid-cell {{ OBJECT_NAME }}

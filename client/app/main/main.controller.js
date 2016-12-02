@@ -28,10 +28,13 @@ angular.module('projectsApp')
     });
 
     $scope.onClearBtnClick = function () {
-      log('onClearBtnClick is NOT implemented yet');
+      let events = angular.copy($scope.events);
+      _.forEach(events, function (e) {
+        $scope.deleteEvent(e);
+      });
     };
 
-    $scope.deleteThing = function(event) {
+    $scope.deleteEvent = function(event) {
       $http.delete('/api/events/' + event._id);
     };
 

@@ -1,3 +1,2 @@
-* Server: event posting - impl error handling when parse.
 * Object name from config.
 * clear protocol button.

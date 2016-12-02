@@ -7,7 +7,7 @@
   .page-content
     .event-list-container.p1(ng-show="events.length > 0")
       .panel.panel-default.event-panel(ng-repeat="event in events | orderBy:'timestamp':true",
-      id="event{{event.id}}", ng-class="{'new-event-panel': event.isNew}")
+      id="event{{event.id}}", ng-class="{'new-event-panel': event.isNew, 'del-event-panel': event.isBeingDeleted}")
         .panel-body.event-panel-body
           .Grid.Grid--center.event-panel-row.event-panel-row-mb1
             .Grid-cell.bold.nowrap Акустическая тревога

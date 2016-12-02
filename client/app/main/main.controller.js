@@ -54,7 +54,20 @@ angular.module('projectsApp')
       });
     };
 
-    $scope.onDelBtnClick = e => $scope.deleteEvent(e);
+    $scope.onDelBtnClick = function (event) {
+      event.isBeingDeleted = true;
+      const elemSelector = `#event${event.id}.del-event-panel`;
+      const animClasses = 'animated rollOut';
+      // apply the animation
+      $timeout(function () {
+        $(elemSelector).addClass(animClasses);
+      }, 0);
+      // remove item
+      $timeout(function () {
+        $scope.deleteEvent(event);
+      }, 2000);
+
+    };
 
     $scope.deleteEvent = function(event) {
       $http.delete('/api/events/' + event._id);

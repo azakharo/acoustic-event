@@ -1,2 +1,1 @@
 * Object name from config.
-* clear protocol button.

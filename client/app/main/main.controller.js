@@ -31,19 +31,19 @@ angular.module('projectsApp')
       if (socketEvent == 'created') {
         event.isNew = true;
         const elemSelector = `#event${event.id}.new-event-panel`;
-        const animClasses = 'animated flash infinite';
+        //const animClasses = 'animated flash infinite';
         // apply the animation
         $timeout(function () {
-          $(elemSelector).addClass(animClasses);
+          //$(elemSelector).addClass(animClasses);
         }, 0);
         // remove animation
         $timeout(function () {
-          $(elemSelector).removeClass(animClasses);
+          //$(elemSelector).removeClass(animClasses);
           let animEvent = _.find($scope.events, ['id', event.id]);
           if (animEvent) {
             animEvent.isNew = false;
           }
-        }, 5000);
+        }, 7000);
       }
     }
 

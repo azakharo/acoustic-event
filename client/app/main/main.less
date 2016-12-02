@@ -11,9 +11,6 @@
 
 .page-content {
   flex: 1;
-  min-height: 400px;
-  overflow-y: auto;
-//  background: green;
 
   display: flex;
   flex-flow: row nowrap;
@@ -37,6 +34,10 @@
 
 .event-list-container, .no-events-msg {
   flex: none;
+}
+
+.event-list-container {
+  overflow-y: auto;
 }
 
 .no-events-msg {

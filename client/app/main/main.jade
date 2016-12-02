@@ -23,5 +23,6 @@
             .Grid-cell.bold SNR:
             .Grid-cell {{ event.snr | number : 2 }}
     .no-events-msg.text-xlarge.p1(ng-hide="events.length > 0") Нет событий
-  footer.page-footer.text-center.pt1 Copyright &copy; 2015-2016 &mdash;&nbsp;
-    a(href="http://sarov-itc.ru/", target="_blank") ИТЦ Система-Саров
+  footer.page-footer
+    a.itc-logo(href='http://sarov-itc.ru/', target="_blank")
+      img(src="assets/images/logo.png", alt="лого")

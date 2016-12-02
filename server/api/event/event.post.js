@@ -5,7 +5,7 @@ var Event = require('./event.model');
 
 module.exports = function(req, res) {
   var reqParams = req.query;
-  var id, timestamp, evtClass, device, duration, snr;
+  var id, timestamp, evtClass, device, duration, snr, direction;
   var param, paramName;
 
   // Check id
@@ -71,6 +71,17 @@ module.exports = function(req, res) {
       return sendMsgParamInvalid(res, paramName, param);
     }
 
+    // Check direction
+    paramName = 'event.info.direction';
+    param = reqParams[paramName];
+    if (!param) {
+      return sendMsgParamMissing(res, paramName);
+    }
+    direction = parseFloat(param);
+    if (isNaN(snr)) {
+      return sendMsgParamInvalid(res, paramName, param);
+    }
+
     // Create new event
     var newEvent = {
       id: id,
@@ -78,7 +89,8 @@ module.exports = function(req, res) {
       class: reqParams['event.class'],
       device: reqParams['identity.name'],
       duration: duration,
-      snr: snr
+      snr: snr,
+      direction: direction
     };
     Event.create(newEvent, function(err, event) {
       if(err) { return handleError(res, err); }

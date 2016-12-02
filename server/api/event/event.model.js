@@ -9,6 +9,7 @@ var EventSchema = new Schema({
   class: String,
   device: String,
   duration: Number,
+  direction: Number,
   snr: Number
 });
 

@@ -2,13 +2,13 @@
   .page-hdr.p1
     .page-title.text-xlarge Система Акустического Мониторинга
     .page-buttons
-      button.btn.btn-default(ng-click="onClearBtnClick()", ng-disabled="!events || events.length === 0")
+      button.btn.btn-default(ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
         i.fa.fa-trash
   .page-content
     .event-list-container.p1(ng-show="events.length > 0")
       .panel.panel-default.event-panel(ng-repeat="event in events | orderBy:'timestamp':true",
       id="event{{event.id}}", ng-class="{'new-event-panel': event.isNew}")
-        .panel-body
+        .panel-body.event-panel-body
           .Grid.Grid--center.event-panel-row.event-panel-row-mb1
             .Grid-cell.bold.nowrap Акустическая тревога
             .Grid-cell.event-time {{ event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
@@ -27,6 +27,8 @@
             .Grid-cell {{ event.duration | number : 2 }}
             .Grid-cell.bold Направление:&nbsp;
             .Grid-cell {{ event.direction | number : 2 }}
+          button.btn.btn-danger.del-event-btn(ng-click="onDelBtnClick(event)")
+            i.fa.fa-trash
     .no-events-msg.text-xlarge.p1(ng-hide="events.length > 0") Нет событий
   footer.page-footer
     a.itc-logo(href='http://sarov-itc.ru/', target="_blank")

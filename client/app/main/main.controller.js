@@ -47,12 +47,14 @@ angular.module('projectsApp')
       }
     }
 
-    $scope.onClearBtnClick = function () {
+    $scope.onClearAllBtnClick = function () {
       let events = angular.copy($scope.events);
       _.forEach(events, function (e) {
         $scope.deleteEvent(e);
       });
     };
+
+    $scope.onDelBtnClick = e => $scope.deleteEvent(e);
 
     $scope.deleteEvent = function(event) {
       $http.delete('/api/events/' + event._id);

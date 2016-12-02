@@ -18,68 +18,74 @@ module.exports = function(req, res) {
   if (isNaN(id)) {
     return sendMsgParamInvalid(res, paramName, param);
   }
+  Event.findOne({id: id}, function (err, event) {
+    if (event) {
+      return res.status(403).send("Event with id '" + id + "' already exists");
+    }
 
-  // Check timestamp
-  paramName = 'event.timestamp';
-  param = reqParams[paramName];
-  if (!param) {
-    return sendMsgParamMissing(res, paramName);
-  }
-  timestamp = parseFloat(param);
-  if (isNaN(timestamp)) {
-    return sendMsgParamInvalid(res, paramName, param);
-  }
-  timestamp = new Date(timestamp * 1000);
+    // Check timestamp
+    paramName = 'event.timestamp';
+    param = reqParams[paramName];
+    if (!param) {
+      return sendMsgParamMissing(res, paramName);
+    }
+    timestamp = parseFloat(param);
+    if (isNaN(timestamp)) {
+      return sendMsgParamInvalid(res, paramName, param);
+    }
+    timestamp = new Date(timestamp * 1000);
 
-  // Check class
-  paramName = 'event.class';
-  param = reqParams[paramName];
-  if (!param) {
-    return sendMsgParamMissing(res, paramName);
-  }
+    // Check class
+    paramName = 'event.class';
+    param = reqParams[paramName];
+    if (!param) {
+      return sendMsgParamMissing(res, paramName);
+    }
 
-  // Check device
-  paramName = 'identity.name';
-  param = reqParams[paramName];
-  if (!param) {
-    return sendMsgParamMissing(res, paramName);
-  }
+    // Check device
+    paramName = 'identity.name';
+    param = reqParams[paramName];
+    if (!param) {
+      return sendMsgParamMissing(res, paramName);
+    }
 
-  // Check duration
-  paramName = 'event.info.duration';
-  param = reqParams[paramName];
-  if (!param) {
-    return sendMsgParamMissing(res, paramName);
-  }
-  duration = parseFloat(param);
-  if (isNaN(duration)) {
-    return sendMsgParamInvalid(res, paramName, param);
-  }
+    // Check duration
+    paramName = 'event.info.duration';
+    param = reqParams[paramName];
+    if (!param) {
+      return sendMsgParamMissing(res, paramName);
+    }
+    duration = parseFloat(param);
+    if (isNaN(duration)) {
+      return sendMsgParamInvalid(res, paramName, param);
+    }
 
-  // Check snr
-  paramName = 'event.info.snr';
-  param = reqParams[paramName];
-  if (!param) {
-    return sendMsgParamMissing(res, paramName);
-  }
-  snr = parseFloat(param);
-  if (isNaN(snr)) {
-    return sendMsgParamInvalid(res, paramName, param);
-  }
+    // Check snr
+    paramName = 'event.info.snr';
+    param = reqParams[paramName];
+    if (!param) {
+      return sendMsgParamMissing(res, paramName);
+    }
+    snr = parseFloat(param);
+    if (isNaN(snr)) {
+      return sendMsgParamInvalid(res, paramName, param);
+    }
 
-  var newEvent = {
-    id: id,
-    timestamp: timestamp,
-    class: reqParams['event.class'],
-    device: reqParams['identity.name'],
-    duration: duration,
-    snr: snr
-  };
-
-  Event.create(newEvent, function(err, event) {
-    if(err) { return handleError(res, err); }
-    return res.status(201).json(event);
+    // Create new event
+    var newEvent = {
+      id: id,
+      timestamp: timestamp,
+      class: reqParams['event.class'],
+      device: reqParams['identity.name'],
+      duration: duration,
+      snr: snr
+    };
+    Event.create(newEvent, function(err, event) {
+      if(err) { return handleError(res, err); }
+      return res.status(201).json(event);
+    });
   });
+
 };
 
 function sendMsgParamMissing(res, paramName) {

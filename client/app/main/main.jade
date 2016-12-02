@@ -2,7 +2,7 @@
   .page-hdr.p1
     .page-title.text-xlarge Система Акустического Мониторинга
     .page-buttons
-      button.btn.btn-default(ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
+      button.btn.btn-danger(ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
         i.fa.fa-trash
   .page-content
     .event-list-container.p1(ng-show="events.length > 0")

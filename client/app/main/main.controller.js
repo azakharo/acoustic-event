@@ -32,7 +32,7 @@ angular.module('projectsApp')
     function onNewEvent(socketEvent, event) {
       if (socketEvent == 'created') {
         event.isNew = true;
-        const elemSelector = `#event${event.id}.new-event-panel`;
+        const elemSelector = `#event${event._id}.new-event-panel`;
         //const animClasses = 'animated flash infinite';
         // apply the animation
         $timeout(function () {
@@ -41,7 +41,7 @@ angular.module('projectsApp')
         // remove animation
         $timeout(function () {
           //$(elemSelector).removeClass(animClasses);
-          let animEvent = _.find($scope.events, ['id', event.id]);
+          let animEvent = _.find($scope.events, ['_id', event._id]);
           if (animEvent) {
             animEvent.isNew = false;
           }
@@ -61,7 +61,7 @@ angular.module('projectsApp')
         event.isNew = false;
       }
       event.isBeingDeleted = true;
-      const elemSelector = `#event${event.id}.del-event-panel`;
+      const elemSelector = `#event${event._id}.del-event-panel`;
       const animClasses = 'animated rollOut';
       // apply the animation
       $timeout(function () {

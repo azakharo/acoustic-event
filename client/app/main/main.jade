@@ -29,7 +29,7 @@
             .Grid-cell {{ event.direction | number : 2 }}
           button.btn.btn-danger.del-event-btn(ng-click="onDelBtnClick(event)")
             i.fa.fa-trash
-    .no-events-msg.text-xlarge.p1(ng-hide="events.length > 0") Нет событий
+    .no-events-msg.text-xlarge.p1(ng-hide="!isEventsLoaded || events.length > 0") Нет событий
   footer.page-footer
     a.itc-logo(href='http://sarov-itc.ru/', target="_blank")
       img(src="assets/images/logo.png", alt="лого")

@@ -13,6 +13,7 @@ angular.module('projectsApp')
     //=====================================================
     // Startup code
 
+    $scope.isEventsLoaded = false;
     $scope.events = [];
     $scope.OBJECT_NAME = "Объект 1";
 
@@ -23,6 +24,7 @@ angular.module('projectsApp')
     // Implementation
 
     $http.get('/api/events').success(function(events) {
+      $scope.isEventsLoaded = true;
       $scope.events = events;
       socket.syncUpdates(MODEL_NAME, $scope.events, onNewEvent);
     });

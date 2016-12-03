@@ -27,7 +27,7 @@
             .Grid-cell {{ event.duration | number : 2 }}
             .Grid-cell.bold Направление:&nbsp;
             .Grid-cell {{ event.direction | number : 2 }}
-          button.btn.btn-danger.del-event-btn(ng-click="onDelBtnClick(event)", ng-disabled="event.isNew")
+          button.btn.btn-danger.del-event-btn(ng-click="onDelBtnClick(event)")
             i.fa.fa-trash
     .no-events-msg.text-xlarge.p1(ng-hide="events.length > 0") Нет событий
   footer.page-footer

@@ -55,6 +55,9 @@ angular.module('projectsApp')
     };
 
     $scope.onDelBtnClick = function (event) {
+      if (event.isNew) {
+        event.isNew = false;
+      }
       event.isBeingDeleted = true;
       const elemSelector = `#event${event.id}.del-event-panel`;
       const animClasses = 'animated rollOut';

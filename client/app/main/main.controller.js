@@ -62,7 +62,7 @@ angular.module('projectsApp')
       }
       event.isBeingDeleted = true;
       const elemSelector = `#event${event._id}.del-event-panel`;
-      const animClasses = 'animated rollOut';
+      const animClasses = 'animated slideOutLeft';
       // apply the animation
       $timeout(function () {
         $(elemSelector).addClass(animClasses);
@@ -70,7 +70,7 @@ angular.module('projectsApp')
       // remove item
       $timeout(function () {
         $scope.deleteEvent(event);
-      }, 1000);
+      }, 500);
 
     };
 

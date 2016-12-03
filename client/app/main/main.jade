@@ -17,12 +17,12 @@
           .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
             .Grid-cell.bold Событие:
             .Grid-cell {{ event.class }}
-            .Grid-cell.bold SNR:
+            .Grid-cell SNR:
             .Grid-cell {{ event.snr | number : 2 }}
           .Grid.Grid--center.Grid--1of4.event-panel-row
-            .Grid-cell.bold Длина:
+            .Grid-cell Длительность:
             .Grid-cell {{ event.duration | number : 2 }}
-            .Grid-cell.bold Направление:&nbsp;
+            .Grid-cell Направление:&nbsp;
             .Grid-cell {{ event.direction | number : 2 }}
           button.btn.btn-success.del-event-btn(ng-click="onDelBtnClick(event)")
             i.fa.fa-check

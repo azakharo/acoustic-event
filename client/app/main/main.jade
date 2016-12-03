@@ -1,9 +1,6 @@
 .main-container.vh100.vw100
   .page-hdr.p1
     .page-title.text-xlarge Система Акустического Мониторинга
-    .page-buttons
-      button.btn.btn-danger(ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
-        i.fa.fa-trash
   .page-content
     .event-list-container.p1(ng-show="events.length > 0")
       .panel.panel-default.event-panel(ng-repeat="event in events | orderBy:'timestamp':true",
@@ -30,6 +27,10 @@
           button.btn.btn-danger.del-event-btn(ng-click="onDelBtnClick(event)")
             i.fa.fa-trash
     .no-events-msg.text-xlarge.p1(ng-hide="!isEventsLoaded || events.length > 0") Нет событий
-  footer.page-footer
-    a.itc-logo(href='http://sarov-itc.ru/', target="_blank")
-      img(src="assets/images/logo.png", alt="лого")
+  footer.page-footer.plr1
+      .itc-logo-container
+        a.itc-logo(href='http://sarov-itc.ru/', target="_blank")
+          img(src="assets/images/logo.png", alt="лого")
+      .page-buttons
+        button.btn.btn-danger(ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
+          | Очистить протокол

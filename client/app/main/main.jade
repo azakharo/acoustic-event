@@ -16,7 +16,7 @@
             .Grid-cell {{ event.device }}
           .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
             .Grid-cell.bold Событие:
-            .Grid-cell {{ event.class }}
+            .Grid-cell {{ event.class | eventClassFilter }}
             .Grid-cell SNR:
             .Grid-cell {{ event.snr | number : 2 }}
           .Grid.Grid--center.Grid--1of4.event-panel-row

@@ -82,4 +82,23 @@ angular.module('projectsApp')
       socket.unsyncUpdates(MODEL_NAME);
     });
 
+  })
+  .filter('eventClassFilter', function () {
+    return function (serverClass) {
+      let retVal = serverClass;
+
+      switch (serverClass) {
+        case 'siren':
+          retVal = 'сирена';
+          break;
+        case 'klaxon':
+          retVal = 'клаксон';
+          break;
+        case 'shout':
+          retVal = 'крик';
+          break;
+      }
+
+      return retVal;
+    };
   });

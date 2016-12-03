@@ -24,8 +24,8 @@
             .Grid-cell {{ event.duration | number : 2 }}
             .Grid-cell.bold Направление:&nbsp;
             .Grid-cell {{ event.direction | number : 2 }}
-          button.btn.btn-danger.del-event-btn(ng-click="onDelBtnClick(event)")
-            i.fa.fa-trash
+          button.btn.btn-success.del-event-btn(ng-click="onDelBtnClick(event)")
+            i.fa.fa-check
     .no-events-msg.text-xlarge.p1(ng-hide="!isEventsLoaded || events.length > 0") Нет событий
   footer.page-footer.plr1
       .itc-logo-container

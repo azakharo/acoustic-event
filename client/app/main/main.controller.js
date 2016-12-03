@@ -68,7 +68,7 @@ angular.module('projectsApp')
       // remove item
       $timeout(function () {
         $scope.deleteEvent(event);
-      }, 2000);
+      }, 1000);
 
     };
 

@@ -1,3 +1,8 @@
+// Colors
+@black-color: #000618;
+@blue-color: #162054;
+@white-color: #f0f0f0;
+
 .main-container {
   display: flex;
   flex-flow: column nowrap;
@@ -9,9 +14,12 @@
   flex: none;
 }
 
+.page-hdr *, .page-footer * {
+  color: @white-color;
+}
+
 .page-footer {
-  background: midnightblue;
-  color: #ffffff;
+  background: @blue-color;
 
   display: flex;
   flex-flow: row wrap;
@@ -30,7 +38,7 @@
   align-items: stretch;
   justify-content: center;
 
-  background: #000000;
+  background: @black-color;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -46,7 +54,7 @@
   align-items: stretch;
   justify-content: center;
 
-  background: midnightblue;
+  background: @blue-color;
   color: #ffffff;
 }
 
@@ -116,6 +124,9 @@
 
 .event-panel-body {
   position: relative;
+
+  background: @white-color;
+  color: @black-color;
 }
 
 .del-event-btn {

@@ -34,7 +34,7 @@ angular.module('projectsApp')
 
     $scope.isEventsLoaded = false;
     $scope.events = [];
-    $scope.OBJECT_NAME = "Объект 1";
+    $scope.OBJECT_NAME = "Светофорный объект №2158";
 
     //=====================================================
 

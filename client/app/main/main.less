@@ -115,7 +115,11 @@
 
 .event-panel {
   flex: none;
-  width: 44rem;
+  width: 56rem;
+
+  .medium({
+    width: 44rem !important;
+  });
 
   .small({
     width: 20rem !important;
@@ -150,6 +154,19 @@
 
 .event-time {
   color: darkblue;
+}
+
+.event-icon-container {
+  .medium({
+    display: none;
+  });
+  .small({
+    display: none;
+  });
+}
+
+.event-icon {
+  width: 10rem;
 }
 
 // Delete event animation

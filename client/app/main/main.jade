@@ -6,24 +6,28 @@
       .panel.panel-default.event-panel(ng-repeat="event in events | orderBy:'timestamp':true",
       id="event{{event._id}}", ng-class="{'new-event-panel': event.isNew, 'del-event-panel': event.isBeingDeleted}")
         .panel-body.event-panel-body
-          .Grid.Grid--center.event-panel-row.event-panel-row-mb1
-            .Grid-cell.bold.nowrap Акустическая тревога
-            .Grid-cell.event-time {{ event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
-          .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
-            .Grid-cell.bold Объект:
-            .Grid-cell {{ OBJECT_NAME }}
-            .Grid-cell.bold Устройство:
-            .Grid-cell {{ event.device }}
-          .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
-            .Grid-cell.bold Событие:
-            .Grid-cell {{ event.class | eventClassFilter }}
-            .Grid-cell SNR:
-            .Grid-cell {{ event.snr | number : 2 }}
-          .Grid.Grid--center.Grid--1of4.event-panel-row
-            .Grid-cell Длительность:
-            .Grid-cell {{ event.duration | number : 2 }}
-            .Grid-cell Направление:&nbsp;
-            .Grid-cell {{ event.direction | number : 2 }}
+          .Grid.Grid--center
+            .Grid-cell--autoSize.event-icon-container.pr2
+              img.event-icon(ng-src="assets/images/{{ getEventImgFname(event) }}", alt="{{ getEventImgAlt(event) }}")
+            .Grid-cell
+              .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+                .Grid-cell.bold.nowrap Акустическая тревога
+                .Grid-cell.event-time {{ event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
+              .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
+                .Grid-cell.bold Объект:
+                .Grid-cell {{ OBJECT_NAME }}
+                .Grid-cell.bold Устройство:
+                .Grid-cell {{ event.device }}
+              .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
+                .Grid-cell.bold Событие:
+                .Grid-cell {{ event.class | eventClassFilter }}
+                .Grid-cell SNR:
+                .Grid-cell {{ event.snr | number : 2 }}
+              .Grid.Grid--center.Grid--1of4.event-panel-row
+                .Grid-cell Длительность:
+                .Grid-cell {{ event.duration | number : 2 }}
+                .Grid-cell Направление:&nbsp;
+                .Grid-cell {{ event.direction | number : 2 }}
           button.btn.btn-success.del-event-btn(ng-click="onDelBtnClick(event)")
             i.fa.fa-check
     .no-events-msg.text-xlarge.p1(ng-hide="!isEventsLoaded || events.length > 0") Нет событий

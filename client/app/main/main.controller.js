@@ -1,5 +1,24 @@
 'use strict';
 
+const EVENT2IMG = {
+  'siren': {
+    imgFname: 'siren.png',
+    imgAlt: 'сирена'
+  },
+  'shout': {
+    imgFname: 'shout.png',
+    imgAlt: 'крик'
+  },
+  'klaxon': {
+    imgFname: 'klaxon.png',
+    imgAlt: 'клаксон'
+  },
+  'unknown': {
+    imgFname: 'event.png',
+    imgAlt: 'акуст.событие'
+  }
+};
+
 angular.module('projectsApp')
   .controller('MainCtrl', function ($scope, $http, $timeout, socket) {
     ///////////////////////////////////////////////////////
@@ -81,6 +100,34 @@ angular.module('projectsApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates(MODEL_NAME);
     });
+
+    $scope.getEventImgFname = function (event) {
+      let imgFname = EVENT2IMG['unknown'].imgFname;
+
+      switch (event.class) {
+        case 'siren':
+        case 'klaxon':
+        case 'shout':
+          imgFname = EVENT2IMG[event.class].imgFname;
+          break;
+      }
+
+      return imgFname;
+    };
+
+    $scope.getEventImgAlt = function (event) {
+      let imgFname = EVENT2IMG['unknown'].imgAlt;
+
+      switch (event.class) {
+        case 'siren':
+        case 'klaxon':
+        case 'shout':
+          imgFname = EVENT2IMG[event.class].imgAlt;
+          break;
+      }
+
+      return imgFname;
+    };
 
   })
   .filter('eventClassFilter', function () {

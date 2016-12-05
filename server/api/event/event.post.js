@@ -5,7 +5,7 @@ var Event = require('./event.model');
 
 module.exports = function(req, res) {
   var reqParams = req.query;
-  var id, timestamp, evtClass, device, duration, snr, direction;
+  var id, timestamp, duration, signalLevel, direction, eventClass, deviceName;
   var param, paramName;
 
   // Check id
@@ -34,19 +34,23 @@ module.exports = function(req, res) {
   // Check class
   paramName = 'event.class';
   param = reqParams[paramName];
+  param = trimDoubleQuotes(param);
   if (!param) {
     return sendMsgParamMissing(res, paramName);
   }
+  eventClass = param;
 
   // Check device
   paramName = 'identity.name';
   param = reqParams[paramName];
+  param = trimDoubleQuotes(param);
   if (!param) {
     return sendMsgParamMissing(res, paramName);
   }
+  deviceName = param;
 
   // Check duration
-  paramName = 'event.info.duration';
+  paramName = 'info.duration';
   param = reqParams[paramName];
   if (!param) {
     return sendMsgParamMissing(res, paramName);
@@ -56,25 +60,25 @@ module.exports = function(req, res) {
     return sendMsgParamInvalid(res, paramName, param);
   }
 
-  // Check snr
-  paramName = 'event.info.snr';
+  // Check signal level
+  paramName = 'info.signal_level';
   param = reqParams[paramName];
   if (!param) {
     return sendMsgParamMissing(res, paramName);
   }
-  snr = parseFloat(param);
-  if (isNaN(snr)) {
+  signalLevel = parseFloat(param);
+  if (isNaN(signalLevel)) {
     return sendMsgParamInvalid(res, paramName, param);
   }
 
   // Check direction
-  paramName = 'event.info.direction';
+  paramName = 'info.direction';
   param = reqParams[paramName];
   if (!param) {
     return sendMsgParamMissing(res, paramName);
   }
   direction = parseFloat(param);
-  if (isNaN(snr)) {
+  if (isNaN(direction)) {
     return sendMsgParamInvalid(res, paramName, param);
   }
 
@@ -82,10 +86,10 @@ module.exports = function(req, res) {
   var newEvent = {
     id: id,
     timestamp: timestamp,
-    class: reqParams['event.class'],
-    device: reqParams['identity.name'],
+    class: eventClass,
+    device: deviceName,
     duration: duration,
-    snr: snr,
+    signalLevel: signalLevel,
     direction: direction
   };
   Event.create(newEvent, function(err, event) {
@@ -101,4 +105,8 @@ function sendMsgParamMissing(res, paramName) {
 
 function sendMsgParamInvalid(res, paramName, param) {
   return res.status(403).send("Invalid " + paramName + " '" + param + "'");
+}
+
+function trimDoubleQuotes(s) {
+  return s.replace(/^"(.*)"$/, '$1');
 }

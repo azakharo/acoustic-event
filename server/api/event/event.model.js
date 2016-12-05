@@ -10,7 +10,7 @@ var EventSchema = new Schema({
   device: String,
   duration: Number,
   direction: Number,
-  snr: Number
+  signalLevel: Number
 });
 
 module.exports = mongoose.model('Event', EventSchema);

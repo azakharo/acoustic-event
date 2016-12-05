@@ -21,8 +21,8 @@
               .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
                 .Grid-cell.bold Событие:
                 .Grid-cell {{ event.class | eventClassFilter }}
-                .Grid-cell SNR:
-                .Grid-cell {{ event.snr | number : 2 }}
+                .Grid-cell Уровень сигнала:
+                .Grid-cell {{ event.signalLevel | number : 2 }}
               .Grid.Grid--center.Grid--1of4.event-panel-row
                 .Grid-cell Длительность:
                 .Grid-cell {{ event.duration | number : 2 }}

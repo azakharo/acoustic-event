@@ -94,7 +94,7 @@ module.exports = function(req, res) {
   };
   Event.create(newEvent, function(err, event) {
     if(err) { return handleError(res, err); }
-    return res.status(201).json(event);
+    return res.status(200).json(event);
   });
 
 };

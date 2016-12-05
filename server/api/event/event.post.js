@@ -100,7 +100,7 @@ module.exports = function(req, res) {
 };
 
 function sendMsgParamMissing(res, paramName) {
-  return res.status(403).send(paramName + " parameter is missing");
+  return res.status(400).send(paramName + " parameter is missing");
 }
 
 function sendMsgParamInvalid(res, paramName, param) {

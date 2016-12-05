@@ -53,33 +53,42 @@ module.exports = function(req, res) {
   paramName = 'info.duration';
   param = reqParams[paramName];
   if (!param) {
-    return sendMsgParamMissing(res, paramName);
+    //return sendMsgParamMissing(res, paramName);
+    duration = undefined;
   }
-  duration = parseFloat(param);
-  if (isNaN(duration)) {
-    return sendMsgParamInvalid(res, paramName, param);
+  else {
+    duration = parseFloat(param);
+    if (isNaN(duration)) {
+      return sendMsgParamInvalid(res, paramName, param);
+    }
   }
 
   // Check signal level
   paramName = 'info.signal_level';
   param = reqParams[paramName];
   if (!param) {
-    return sendMsgParamMissing(res, paramName);
+    //return sendMsgParamMissing(res, paramName);
+    signalLevel = undefined;
   }
-  signalLevel = parseFloat(param);
-  if (isNaN(signalLevel)) {
-    return sendMsgParamInvalid(res, paramName, param);
+  else {
+    signalLevel = parseFloat(param);
+    if (isNaN(signalLevel)) {
+      return sendMsgParamInvalid(res, paramName, param);
+    }
   }
 
   // Check direction
   paramName = 'info.direction';
   param = reqParams[paramName];
   if (!param) {
-    return sendMsgParamMissing(res, paramName);
+    //return sendMsgParamMissing(res, paramName);
+    direction = undefined;
   }
-  direction = parseFloat(param);
-  if (isNaN(direction)) {
-    return sendMsgParamInvalid(res, paramName, param);
+  else {
+    direction = parseFloat(param);
+    if (isNaN(direction)) {
+      return sendMsgParamInvalid(res, paramName, param);
+    }
   }
 
   // Create new event

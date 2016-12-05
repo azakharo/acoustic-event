@@ -1,12 +1,28 @@
 'use strict';
 
 var Event = require('./event.model');
+var _ = require('lodash');
 
 
 module.exports = function(req, res) {
   var reqParams = req.query;
   var id, timestamp, duration, signalLevel, direction, eventClass, deviceName;
   var param, paramName;
+  var EVENT_TYPES_TO_SKIP = [
+    'alert'
+  ];
+  var found;
+
+  // Check event type
+  paramName = 'event.type';
+  param = reqParams[paramName];
+  param = trimDoubleQuotes(param);
+  found = _.find(EVENT_TYPES_TO_SKIP, function (eventType) {
+    return eventType === param;
+  });
+  if (found) {
+    return res.status(200).send("event with type '" + param + "' is ignored");
+  }
 
   // Check id
   paramName = 'event.id';

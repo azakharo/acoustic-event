@@ -6,9 +6,9 @@ var _ = require('lodash');
 
 module.exports = function(req, res) {
   var reqParams = req.query;
-  var id, timestamp, duration, signalLevel, direction, eventClass, deviceName;
+  var id, timestamp, duration, signalLevel, direction, eventClass, deviceName, eventType;
   var param, paramName;
-  var EVENT_TYPES_TO_SKIP = [
+  var EVENT_CLASSES_TO_SKIP = [
     'alert'
   ];
   var found;
@@ -17,12 +17,10 @@ module.exports = function(req, res) {
   paramName = 'event.type';
   param = reqParams[paramName];
   param = trimDoubleQuotes(param);
-  found = _.find(EVENT_TYPES_TO_SKIP, function (eventType) {
-    return eventType === param;
-  });
-  if (found) {
-    return res.status(200).send("event with type '" + param + "' is ignored");
+  if (!param) {
+    return sendMsgParamMissing(res, paramName);
   }
+  eventType = param;
 
   // Check id
   paramName = 'event.id';
@@ -53,6 +51,12 @@ module.exports = function(req, res) {
   param = trimDoubleQuotes(param);
   if (!param) {
     return sendMsgParamMissing(res, paramName);
+  }
+  found = _.find(EVENT_CLASSES_TO_SKIP, function (eventCls) {
+    return eventCls === param;
+  });
+  if (found) {
+    return res.status(200).send("event with type '" + param + "' is ignored");
   }
   eventClass = param;
 
@@ -112,6 +116,7 @@ module.exports = function(req, res) {
     id: id,
     timestamp: timestamp,
     class: eventClass,
+    eventType: eventType,
     device: deviceName,
     duration: duration,
     signalLevel: signalLevel,

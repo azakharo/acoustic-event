@@ -7,6 +7,7 @@ var EventSchema = new Schema({
   id: Number,
   timestamp: Date,
   class: String,
+  eventType: String,
   device: String,
   duration: Number,
   direction: Number,

@@ -153,4 +153,9 @@ angular.module('projectsApp')
 
       return retVal;
     };
-  });
+  })
+  .filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+      return $sce.trustAsResourceUrl(url);
+    };
+  }]);

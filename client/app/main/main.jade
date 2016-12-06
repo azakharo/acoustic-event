@@ -24,17 +24,16 @@
                 .Grid-cell {{ event.class | eventClassFilter }}
                 .Grid-cell Уровень сигнала:
                 .Grid-cell {{ event.signalLevel | number : 2 }}
-              .Grid.Grid--center.Grid--1of4.event-panel-row
+              .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
                 .Grid-cell Длительность:
                 .Grid-cell {{ event.duration | number : 2 }}
                 .Grid-cell Направление:&nbsp;
                 .Grid-cell {{ event.direction | number : 2 }}
+              audio(ng-src='{{ getDownloadLink(event) }}', controls)
+                p Ваш браузер не поддерживает audio html5 элемент
           // Del btn
           button.btn.btn-success.del-event-btn(ng-click="onDelBtnClick(event)")
             i.fa.fa-check
-          // Play btn
-          button.btn.btn-default.play-event-btn(disabled="")
-            i.fa.fa-volume-up
           // Download btn
           a.btn.btn-default.download-event-btn(href='{{ getDownloadLink(event) }}',
           download='', ng-click="$event.stopPropagation();", role='button')

@@ -129,6 +129,10 @@ angular.module('projectsApp')
       return imgFname;
     };
 
+    $scope.getDownloadLink = function (event) {
+      return event._id;
+    }
+
   })
   .filter('eventClassFilter', function () {
     return function (serverClass) {

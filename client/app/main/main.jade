@@ -33,10 +33,11 @@
           button.btn.btn-success.del-event-btn(ng-click="onDelBtnClick(event)")
             i.fa.fa-check
           // Play btn
-          button.btn.btn-default.play-event-btn(ng-click="onDelBtnClick(event)")
+          button.btn.btn-default.play-event-btn(disabled="")
             i.fa.fa-volume-up
           // Download btn
-          button.btn.btn-default.download-event-btn(ng-click="onDelBtnClick(event)")
+          a.btn.btn-default.download-event-btn(href='{{ getDownloadLink(event) }}',
+          download='', ng-click="$event.stopPropagation();", role='button')
             i.fa.fa-download
     .no-events-msg.text-xlarge.p1(ng-hide="!isEventsLoaded || events.length > 0") Нет событий
   footer.page-footer.plr1

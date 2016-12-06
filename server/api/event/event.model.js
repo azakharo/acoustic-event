@@ -11,7 +11,8 @@ var EventSchema = new Schema({
   device: String,
   duration: Number,
   direction: Number,
-  signalLevel: Number
+  signalLevel: Number,
+  sourceIP: String
 });
 
 module.exports = mongoose.model('Event', EventSchema);

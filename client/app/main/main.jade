@@ -29,7 +29,7 @@
                 .Grid-cell {{ event.duration | number : 2 }}
                 .Grid-cell Направление:&nbsp;
                 .Grid-cell {{ event.direction | number : 2 }}
-              audio(ng-src='{{ getDownloadLink(event) | trusted }}', controls)
+              audio(ng-src='{{ getDownloadLink(event) | trusted }}', controls, preload="none")
                 p Ваш браузер не поддерживает audio html5 элемент
           // Del btn
           button.btn.btn-success.del-event-btn(ng-click="onDelBtnClick(event)")

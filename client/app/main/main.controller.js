@@ -81,7 +81,7 @@ angular.module('projectsApp')
             }
           }, 7000);
 
-          $scope.events.pop();
+          $scope.events.shift();
           $scope.events.push(event);
           $scope.totalEventCount += 1;
         }

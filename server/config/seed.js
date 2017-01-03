@@ -5,8 +5,11 @@
 
 'use strict';
 
+var _ = require('lodash');
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Event = require('../api/event/event.model');
+
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -47,3 +50,46 @@ User.find({}).remove(function() {
     }
   );
 });
+
+Event.find({}).remove(function() {
+
+  let events = _.times(30, createRandomEvent);
+
+  _.forEach(events, function (e) {
+    Event.create(e);
+  });
+
+  console.log("Created random events");
+});
+
+
+////////////////////////////////////////////////
+// Random event generation
+
+var EVENT_CLASSES = [
+  'siren',
+  'klaxon',
+  'shout'
+];
+
+var nextEventId = 0;
+
+function createRandomEvent() {
+  var eventId = nextEventId;
+  nextEventId += 1;
+  var curDt = new Date();
+  var totalMs = curDt.getTime();
+  var dt = new Date(totalMs + eventId * 60 * 1000);
+  return {
+    id: eventId,
+    timestamp: dt,
+    'class': _.sample(EVENT_CLASSES),
+    device: "Детектор 1",
+    duration: _.random(0, 10, true),
+    direction: _.random(0, 360, true),
+    signalLevel: _.random(0, 100, true)
+  }
+}
+
+// Random event generation
+////////////////////////////////////////////////

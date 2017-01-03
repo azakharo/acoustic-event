@@ -2,11 +2,8 @@
 
 var _ = require('lodash');
 var Event = require('./event.model');
+var utils = require('../../utils');
 
-
-function trimDoubleQuotes(s) {
-  return s.replace(/^"(.*)"$/, '$1');
-}
 
 // Get list of events
 exports.index = function (req, res) {
@@ -14,8 +11,14 @@ exports.index = function (req, res) {
   var page = reqParams['page'];
   var pageSize = reqParams['pagesize'];
   if (page && pageSize) {
-    page = parseInt(trimDoubleQuotes(page), 10);
-    pageSize = parseInt(trimDoubleQuotes(pageSize), 10);
+    page = parseInt(utils.trimDoubleQuotes(page), 10);
+    pageSize = parseInt(utils.trimDoubleQuotes(pageSize), 10);
+    if (isNaN(page)) {
+      return handleError(res, "invalid 'page' param");
+    }
+    if (isNaN(pageSize)) {
+      return handleError(res, "invalid 'pagesize' param");
+    }
     Event.paginate({},
       {page: page, limit: pageSize, sort: {timestamp: -1}},
       function (err, result) {

@@ -1,6 +1,7 @@
 'use strict';
 
 var Event = require('./event.model');
+var utils = require('../../utils');
 var _ = require('lodash');
 
 
@@ -16,7 +17,7 @@ module.exports = function(req, res) {
   // Check event type
   paramName = 'event.type';
   param = reqParams[paramName];
-  param = trimDoubleQuotes(param);
+  param = utils.trimDoubleQuotes(param);
   if (!param) {
     return sendMsgParamMissing(res, paramName);
   }
@@ -48,7 +49,7 @@ module.exports = function(req, res) {
   // Check class
   paramName = 'event.class';
   param = reqParams[paramName];
-  param = trimDoubleQuotes(param);
+  param = utils.trimDoubleQuotes(param);
   if (!param) {
     return sendMsgParamMissing(res, paramName);
   }
@@ -63,7 +64,7 @@ module.exports = function(req, res) {
   // Check device
   paramName = 'identity.name';
   param = reqParams[paramName];
-  param = trimDoubleQuotes(param);
+  param = utils.trimDoubleQuotes(param);
   if (!param) {
     return sendMsgParamMissing(res, paramName);
   }
@@ -136,8 +137,4 @@ function sendMsgParamMissing(res, paramName) {
 
 function sendMsgParamInvalid(res, paramName, param) {
   return res.status(403).send("Invalid " + paramName + " '" + param + "'");
-}
-
-function trimDoubleQuotes(s) {
-  return s.replace(/^"(.*)"$/, '$1');
 }

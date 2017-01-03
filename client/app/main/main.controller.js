@@ -86,7 +86,7 @@ angular.module('projectsApp')
           $scope.totalEventCount += 1;
         }
       }
-      else if (socketEvent == 'remove') {
+      else if (socketEvent == 'deleted') {
         // Try find the deleted item on current page
         let delEvent = _.find($scope.events, ['_id', event._id]);
         // If found
@@ -124,6 +124,7 @@ angular.module('projectsApp')
       // remove item
       $timeout(function () {
         $scope.deleteEvent(event);
+        getData();
       }, 500);
 
     };

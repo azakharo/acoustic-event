@@ -51,7 +51,9 @@ angular.module('projectsApp')
     function getData() {
       $http.get(`/api/events?page=${$scope.curPageNum}&pagesize=${$scope.eventsPerPage}`).success(function(result) {
         $scope.isEventsLoaded = true;
-        $scope.events = result.docs;
+        $scope.events = _.sortBy(result.docs, function (evt) {
+          return -evt.timestamp.getTime();
+        });
         $scope.totalEventCount = result.total;
       });
     }
@@ -81,8 +83,10 @@ angular.module('projectsApp')
             }
           }, 7000);
 
-          $scope.events.shift();
-          $scope.events.push(event);
+          if ($scope.events.length == $scope.eventsPerPage) {
+            $scope.events.pop();
+          }
+          $scope.events.unshift(event);
           $scope.totalEventCount += 1;
         }
       }
@@ -100,10 +104,8 @@ angular.module('projectsApp')
     }
 
     $scope.onClearAllBtnClick = function () {
-      let events = angular.copy($scope.events);
-      _.forEach(events, function (e) {
-        $scope.deleteEvent(e);
-      });
+      $http.delete('/api/events');
+      getData();
     };
 
     function animItemDel(event) {

@@ -86,6 +86,13 @@ exports.destroy = function(req, res) {
   });
 };
 
+// Deletes all events from the DB.
+exports.destroyAll = function(req, res) {
+  Event.find({}).remove(function () {
+    return res.status(204).send('No Content');
+  });
+};
+
 function handleError(res, err) {
   return res.status(500).send(err);
 }

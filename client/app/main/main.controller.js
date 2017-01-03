@@ -45,8 +45,14 @@ angular.module('projectsApp')
     $http.get('/api/events').success(function(events) {
       $scope.isEventsLoaded = true;
       $scope.events = events;
+      $scope.curPageNum = 1;
+      $scope.eventCount = events ? events.length : 0;
       socket.syncUpdates(MODEL_NAME, $scope.events, onNewEvent);
     });
+
+    $scope.onPageNumChanged = function() {
+      log('Page changed to: ' + $scope.curPageNum);
+    };
 
     function onNewEvent(socketEvent, event) {
       if (socketEvent == 'created') {

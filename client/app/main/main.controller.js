@@ -34,7 +34,13 @@ angular.module('projectsApp')
 
     $scope.isEventsLoaded = false;
     $scope.events = [];
+    $scope.dummyEvents = [];
     $scope.OBJECT_NAME = "Светофорный объект №2158";
+    $scope.curPageNum = 1;
+    $scope.eventsPerPage = 2;
+
+    socket.syncUpdates(MODEL_NAME, $scope.dummyEvents, onNewEvent);
+    getData();
 
     //=====================================================
 
@@ -42,16 +48,17 @@ angular.module('projectsApp')
     //*****************************************************
     // Implementation
 
-    $http.get('/api/events').success(function(events) {
-      $scope.isEventsLoaded = true;
-      $scope.events = events;
-      $scope.curPageNum = 1;
-      $scope.eventCount = events ? events.length : 0;
-      socket.syncUpdates(MODEL_NAME, $scope.events, onNewEvent);
-    });
+    function getData() {
+      $http.get(`/api/events?page=${$scope.curPageNum}&pagesize=${$scope.eventsPerPage}`).success(function(result) {
+        $scope.isEventsLoaded = true;
+        $scope.events = result.docs;
+        $scope.totalEventCount = result.total;
+      });
+    }
 
     $scope.onPageNumChanged = function() {
-      log('Page changed to: ' + $scope.curPageNum);
+      //log('Page changed to: ' + $scope.curPageNum);
+      getData();
     };
 
     function onNewEvent(socketEvent, event) {

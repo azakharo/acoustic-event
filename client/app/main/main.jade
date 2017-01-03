@@ -44,8 +44,8 @@
       a.itc-logo(href='http://sarov-itc.ru/', target="_blank")
         img(src="assets/images/logo.png", alt="лого")
     .event-pagination
-      .pagination-ctrl(uib-pagination='', total-items='eventCount', ng-model='curPageNum',
-      items-per-page='2', max-size='5',
+      .pagination-ctrl(uib-pagination='', total-items='totalEventCount', ng-model='curPageNum',
+      items-per-page='eventsPerPage', max-size='5',
       boundary-link-numbers='true', rotate='false',
       next-text="Вперёд", previous-text="Назад",
       ng-change="onPageNumChanged()")

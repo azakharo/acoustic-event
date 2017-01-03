@@ -3,12 +3,41 @@
 var _ = require('lodash');
 var Event = require('./event.model');
 
+
+function trimDoubleQuotes(s) {
+  return s.replace(/^"(.*)"$/, '$1');
+}
+
 // Get list of events
-exports.index = function(req, res) {
-  Event.find(function (err, events) {
-    if(err) { return handleError(res, err); }
-    return res.status(200).json(events);
-  });
+exports.index = function (req, res) {
+  var reqParams = req.query;
+  var page = reqParams['page'];
+  var pageSize = reqParams['pagesize'];
+  if (page && pageSize) {
+    page = parseInt(trimDoubleQuotes(page), 10);
+    pageSize = parseInt(trimDoubleQuotes(pageSize), 10);
+    Event.paginate({},
+      {page: page, limit: pageSize, sort: {timestamp: -1}},
+      function (err, result) {
+        // result.docs
+        // result.total
+        // result.limit
+        // result.page
+        // result.pages
+        if (err) {
+          return handleError(res, err);
+        }
+        return res.status(200).json(result);
+      });
+  }
+  else {
+    Event.find(function (err, events) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.status(200).json(events);
+    });
+  }
 };
 
 // Get a single event

@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
+
 
 var EventSchema = new Schema({
   id: Number,
@@ -14,5 +16,6 @@ var EventSchema = new Schema({
   signalLevel: Number,
   sourceIP: String
 });
+EventSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Event', EventSchema);

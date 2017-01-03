@@ -37,7 +37,7 @@ angular.module('projectsApp')
     $scope.dummyEvents = [];
     $scope.OBJECT_NAME = "Светофорный объект №2158";
     $scope.curPageNum = 1;
-    $scope.eventsPerPage = 2;
+    $scope.eventsPerPage = 10;
 
     socket.syncUpdates(MODEL_NAME, $scope.dummyEvents, onNewEvent);
     getData();

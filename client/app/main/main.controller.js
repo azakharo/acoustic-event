@@ -63,21 +63,28 @@ angular.module('projectsApp')
 
     function onNewEvent(socketEvent, event) {
       if (socketEvent == 'created') {
-        event.isNew = true;
-        const elemSelector = `#event${event._id}.new-event-panel`;
-        //const animClasses = 'animated flash infinite';
-        // apply the animation
-        $timeout(function () {
-          //$(elemSelector).addClass(animClasses);
-        }, 0);
-        // remove animation
-        $timeout(function () {
-          //$(elemSelector).removeClass(animClasses);
-          let animEvent = _.find($scope.events, ['_id', event._id]);
-          if (animEvent) {
-            animEvent.isNew = false;
-          }
-        }, 7000);
+        if ($scope.curPageNum == 1) {
+          event.isNew = true;
+
+          const elemSelector = `#event${event._id}.new-event-panel`;
+          //const animClasses = 'animated flash infinite';
+          // apply the animation
+          $timeout(function () {
+            //$(elemSelector).addClass(animClasses);
+          }, 0);
+          // remove animation
+          $timeout(function () {
+            //$(elemSelector).removeClass(animClasses);
+            let animEvent = _.find($scope.events, ['_id', event._id]);
+            if (animEvent) {
+              animEvent.isNew = false;
+            }
+          }, 7000);
+
+          $scope.events.pop();
+          $scope.events.push(event);
+          $scope.totalEventCount += 1;
+        }
       }
     }
 

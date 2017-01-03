@@ -86,6 +86,17 @@ angular.module('projectsApp')
           $scope.totalEventCount += 1;
         }
       }
+      else if (socketEvent == 'remove') {
+        // Try find the deleted item on current page
+        let delEvent = _.find($scope.events, ['_id', event._id]);
+        // If found
+        if (delEvent) {
+          animItemDel(event);
+          $timeout(function () {
+            getData();
+          }, 500);
+        }
+      }
     }
 
     $scope.onClearAllBtnClick = function () {
@@ -95,7 +106,7 @@ angular.module('projectsApp')
       });
     };
 
-    $scope.onDelBtnClick = function (event) {
+    function animItemDel(event) {
       if (event.isNew) {
         event.isNew = false;
       }
@@ -106,6 +117,10 @@ angular.module('projectsApp')
       $timeout(function () {
         $(elemSelector).addClass(animClasses);
       }, 0);
+    }
+
+    $scope.onDelBtnClick = function (event) {
+      animItemDel(event);
       // remove item
       $timeout(function () {
         $scope.deleteEvent(event);

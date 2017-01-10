@@ -43,12 +43,12 @@
     .itc-logo-container
       a.itc-logo(href='http://sarov-itc.ru/', target="_blank")
         img(src="assets/images/logo.png", alt="лого")
-    .event-pagination(ng-show="events.length > 0 && totalEventCount > eventsPerPage")
-      .pagination-ctrl(uib-pagination='', total-items='totalEventCount', ng-model='curPageNum',
-      items-per-page='eventsPerPage', max-size='5',
-      boundary-link-numbers='true', rotate='false',
-      next-text="Вперёд", previous-text="Назад",
-      ng-change="onPageNumChanged()")
+    //.event-pagination(ng-show="events.length > 0 && totalEventCount > eventsPerPage")
+    //  .pagination-ctrl(uib-pagination='', total-items='totalEventCount', ng-model='curPageNum',
+    //  items-per-page='eventsPerPage', max-size='5',
+    //  boundary-link-numbers='true', rotate='false',
+    //  next-text="Вперёд", previous-text="Назад",
+    //  ng-change="onPageNumChanged()")
     .page-buttons
         button.btn.btn-danger(ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
           | Очистить протокол

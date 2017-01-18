@@ -121,8 +121,8 @@ module.exports = function(req, res) {
     device: deviceName,
     duration: duration,
     signalLevel: signalLevel,
-    direction: direction,
-    sourceIP: req.ip
+    direction: direction
+    //sourceIP: req.ip
   };
   Event.create(newEvent, function(err, event) {
     if(err) { return handleError(res, err); }

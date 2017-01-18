@@ -169,7 +169,7 @@ angular.module('projectsApp')
 
     $scope.getDownloadLink = function (event) {
       let dt = moment(event.timestamp).format('YYYY-MM-DD-HH-mm-ss');
-      return `http://admin:admin@${event.sourceIP}/records/record-${dt}-${event.eventType}-${event.class}.wav`;
+      return `/records/record-${dt}-${event.eventType}-${event.class}.wav`;
     };
 
   })

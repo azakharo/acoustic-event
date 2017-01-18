@@ -18,6 +18,6 @@ exports.getDetectorCredentials = function () {
         return;
       }
       global.detectors = body;
-      console.log(global.detectors);
+      //console.log(global.detectors);
     });
 };

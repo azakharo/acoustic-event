@@ -1,13 +1,35 @@
 'use strict';
 
-var request = require('request');
+const request = require('request');
+const _ = require('lodash');
 
 module.exports = function(req, res) {
-  //console.log(req.url);
-  //return res.status(200).json({
-  //  'ha': 'na'
-  //});
+  let detectorID = req.param('detector');
+  if (!detectorID) {
+    let errMsg = "unknown detector";
+    console.log(errMsg);
+    return res.status(404).send(errMsg);
+  }
+  //console.log(detectorID);
+  //console.log(global.detectors);
 
-  res.setHeader("content-disposition", "attachment; filename=song.mp3");
-  request('http://127.0.0.1:3333/01_never_gonna_give_you_up.mp3').pipe(res);
+  // Get detector's IP by ID
+  let detector = _.find(global.detectors, {'id': detectorID});
+  //console.log(detector);
+  if (!detector) {
+    let errMsg = `not found IP for detector with ID '${detectorID}'`;
+    console.log(errMsg);
+    return res.status(404).send(errMsg);
+  }
+  //console.log(detector.ip);
+
+  // Build proper url to req sound file from the detector
+  let fname = req.path.substr(1);
+  //console.log(fname);
+  let url = `http://${detector.ip}/records/${fname}`;
+  //console.log(url);
+
+  // Proxy the request to the detector
+  res.setHeader("content-disposition", `attachment; filename=${fname}`);
+  request(url).auth(detector.login, detector.password).pipe(res);
 };

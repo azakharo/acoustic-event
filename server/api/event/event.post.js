@@ -136,5 +136,5 @@ function sendMsgParamMissing(res, paramName) {
 }
 
 function sendMsgParamInvalid(res, paramName, param) {
-  return res.status(403).send("Invalid " + paramName + " '" + param + "'");
+  return res.status(400).send("Invalid " + paramName + " '" + param + "'");
 }

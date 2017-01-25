@@ -12,6 +12,7 @@ module.exports = function(app) {
   // Insert routes below
   app.use('/acoustic_event', require('./api/event/event.post.js'));
   app.use('/api/events', require('./api/event'));
+  app.use('/records', require('./api/sound'));
   app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
 

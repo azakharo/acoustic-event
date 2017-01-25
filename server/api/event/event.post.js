@@ -121,8 +121,8 @@ module.exports = function(req, res) {
     device: deviceName,
     duration: duration,
     signalLevel: signalLevel,
-    direction: direction,
-    sourceIP: req.ip
+    direction: direction
+    //sourceIP: req.ip
   };
   Event.create(newEvent, function(err, event) {
     if(err) { return handleError(res, err); }
@@ -136,5 +136,5 @@ function sendMsgParamMissing(res, paramName) {
 }
 
 function sendMsgParamInvalid(res, paramName, param) {
-  return res.status(403).send("Invalid " + paramName + " '" + param + "'");
+  return res.status(400).send("Invalid " + paramName + " '" + param + "'");
 }

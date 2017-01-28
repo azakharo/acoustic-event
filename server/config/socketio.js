@@ -5,6 +5,7 @@
 'use strict';
 
 var config = require('./environment');
+var app = {};
 
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
@@ -18,11 +19,10 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/event/event.socket').register(socket);
-  require('../api/thing/thing.socket').register(socket);
+  require('../api/event/event.socket').register(socket, app.locals.bus);
 }
 
-module.exports = function (socketio) {
+module.exports = function (socketio, tmpApp) {
   // socket.io (v1.x.x) is powered by debug.
   // In order to see all the debug output, set DEBUG (in server/config/local.env.js) to including the desired scope.
   //
@@ -37,7 +37,7 @@ module.exports = function (socketio) {
   //   secret: config.secrets.session,
   //   handshake: true
   // }));
-
+  app = tmpApp;
   socketio.on('connection', function (socket) {
     socket.address = socket.handshake.address !== null ?
             socket.handshake.address.address + ':' + socket.handshake.address.port :

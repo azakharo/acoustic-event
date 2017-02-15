@@ -16,12 +16,7 @@
     "kerberos": "0.0.22",
     "lodash": "~2.4.1",
     "method-override": "~1.0.0",
-<<<<<<< HEAD
     "nedb": "~1.8.0",
-=======
-    "mongoose": "4.2.10",
-    "mongoose-paginate": "^5.0.3",
->>>>>>> master
     "morgan": "~1.0.0",
     "passport": "~0.2.0",
     "passport-facebook": "latest",

@@ -1,12 +1,11 @@
 {
-  "name": "projects",
-  "version": "0.0.0",
+  "name": "alarm-panel",
+  "version": "0.0.2",
   "main": "server/app.js",
   "dependencies": {
     "body-parser": "~1.5.0",
     "composable-middleware": "^0.3.0",
     "compression": "~1.0.1",
-    "connect-mongo": "^0.8.1",
     "cookie-parser": "~1.0.1",
     "errorhandler": "~1.0.0",
     "express": "~4.9.0",
@@ -17,8 +16,7 @@
     "kerberos": "0.0.22",
     "lodash": "~2.4.1",
     "method-override": "~1.0.0",
-    "mongoose": "4.2.10",
-    "mongoose-paginate": "^5.0.3",
+    "nedb": "~1.8.0",
     "morgan": "~1.0.0",
     "passport": "~0.2.0",
     "passport-facebook": "latest",
@@ -29,7 +27,8 @@
     "serve-favicon": "~2.0.1",
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^3.0.0"
+    "socketio-jwt": "^3.0.0",
+    "q": "1.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

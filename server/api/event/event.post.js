@@ -1,10 +1,10 @@
 'use strict';
 
-var Event = require('./event.model');
 var utils = require('../../utils');
+var EventEmitter = require('events');
 var _ = require('lodash');
 
-
+var ev = new EventEmitter();
 module.exports = function(req, res) {
   var reqParams = req.query;
   var id, timestamp, duration, signalLevel, direction, eventClass, deviceName, eventType;
@@ -124,11 +124,11 @@ module.exports = function(req, res) {
     direction: direction
     //sourceIP: req.ip
   };
-  Event.create(newEvent, function(err, event) {
-    if(err) { return handleError(res, err); }
-    return res.status(200).json(event);
-  });
-
+  req.app.locals.storage.insert(newEvent)
+    .then((inserted) => {
+      req.app.locals.bus.emit('alert', inserted);
+      return res.status(200).json(inserted);
+    });
 };
 
 function sendMsgParamMissing(res, paramName) {

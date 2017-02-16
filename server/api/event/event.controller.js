@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('lodash');
-var Event = require('./event.model');
 var utils = require('../../utils');
 
 
@@ -10,44 +9,20 @@ exports.index = function (req, res) {
   var reqParams = req.query;
   var page = reqParams['page'];
   var pageSize = reqParams['pagesize'];
-  if (page && pageSize) {
-    page = parseInt(utils.trimDoubleQuotes(page), 10);
-    pageSize = parseInt(utils.trimDoubleQuotes(pageSize), 10);
-    if (isNaN(page)) {
-      return handleError(res, "invalid 'page' param");
-    }
-    if (isNaN(pageSize)) {
-      return handleError(res, "invalid 'pagesize' param");
-    }
-    Event.paginate({},
-      {page: page, limit: pageSize, sort: {timestamp: -1}},
-      function (err, result) {
-        // result.docs
-        // result.total
-        // result.limit
-        // result.page
-        // result.pages
-        if (err) {
-          return handleError(res, err);
-        }
-        return res.status(200).json(result);
-      });
-  }
-  else {
-    Event.find(function (err, events) {
-      if (err) {
-        return handleError(res, err);
-      }
-      return res.status(200).json(events);
+  req.app.locals.storage.find()
+    .then((events) => {
+      var result = {};
+      result.docs = events;
+      return res.status(200).json(result);
     });
-  }
 };
 
 // Get a single event
 exports.show = function(req, res) {
-  Event.findById(req.params.id, function (err, event) {
-    if(err) { return handleError(res, err); }
-    if(!event) { return res.status(404).send('Not Found'); }
+  req.app.locals.storage.findOne(req.params.id)
+    .then((event) => {
+      if(err) { return handleError(res, err); }
+      if(!event) { return res.status(404).send('Not Found'); }
     return res.json(event);
   });
 };

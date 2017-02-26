@@ -50,6 +50,7 @@ angular.module('projectsApp')
 
     function getData() {
       $http.get(`/api/events?page=${$scope.curPageNum}&pagesize=${$scope.eventsPerPage}`).success(function(result) {
+        console.log(result);
         $scope.isEventsLoaded = true;
         $scope.events = _.sortBy(result.docs, function (evt) {
           return -evt.timestamp.getTime();
@@ -168,8 +169,12 @@ angular.module('projectsApp')
     };
 
     $scope.getDownloadLink = function (event) {
-      let dt = moment(event.timestamp).format('YYYY-MM-DD-HH-mm-ss');
-      return `/records/record-${dt}-${event.eventType}-${event.class}.wav?detector=${event.device}`;
+      if (event.eventType == 'acoustic') {
+        let dt = moment(event.timestamp).format('YYYY-MM-DD-HH-mm-ss');
+        return `/records/record-${dt}-${event.eventType}-${event.class}.wav?detector=${event.device}`;
+      }else{
+        return `/video/${event.url}`;
+      }
     };
 
   })
@@ -186,6 +191,15 @@ angular.module('projectsApp')
           break;
         case 'shout':
           retVal = 'крик';
+          break;
+        case 'powstat':
+          retVal = 'уровень шума';
+          break;
+        case 'stopatlane':
+          retVal = 'Остановка ТС в полосе';
+          break;
+        case 'stopatcross':
+          retVal = 'Остановка ТС в зоне перекрестка';
           break;
       }
 

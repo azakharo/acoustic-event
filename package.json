@@ -16,7 +16,6 @@
     "kerberos": "0.0.22",
     "lodash": "~2.4.1",
     "method-override": "~1.0.0",
-    "nedb": "~1.8.0",
     "morgan": "~1.0.0",
     "passport": "~0.2.0",
     "passport-facebook": "latest",
@@ -27,8 +26,7 @@
     "serve-favicon": "~2.0.1",
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^3.0.0",
-    "q": "1.4.1"
+    "socketio-jwt": "^3.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

@@ -5,7 +5,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 module.exports = function(req, res) {
-  var file = req.url;
+  var file = path.join(process.cwd(), req.url);
   console.log(file);
   fs.stat(file, function(err, stats) {
     if (err) {

@@ -22,6 +22,7 @@
     "passport-google-oauth": "latest",
     "passport-local": "~0.1.6",
     "passport-twitter": "latest",
+    "q": "https://registry.npmjs.org/q/-/q-1.4.1.tgz",
     "request": "2.79.0",
     "serve-favicon": "~2.0.1",
     "socket.io": "^1.0.6",

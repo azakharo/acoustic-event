@@ -19,7 +19,7 @@ exports.index = function (req, res) {
 
 // Get a single event
 exports.show = function(req, res) {
-  req.app.locals.storage.findOne(req.params.id)
+  req.app.locals.storage.findOne(req.params._id)
     .then((event) => {
       if(err) { return handleError(res, err); }
       if(!event) { return res.status(404).send('Not Found'); }
@@ -38,7 +38,7 @@ exports.create = function(req, res) {
 // Updates an existing event in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Event.findById(req.params.id, function (err, event) {
+  Event.findById(req.params._id, function (err, event) {
     if (err) { return handleError(res, err); }
     if(!event) { return res.status(404).send('Not Found'); }
     var updated = _.merge(event, req.body);
@@ -51,13 +51,12 @@ exports.update = function(req, res) {
 
 // Deletes a event from the DB.
 exports.destroy = function(req, res) {
-  Event.findById(req.params.id, function (err, event) {
+  var id = req.path.slice(1);
+  req.app.locals.storage.remove({_id: id})
+  .then ((event) => {
     if(err) { return handleError(res, err); }
     if(!event) { return res.status(404).send('Not Found'); }
-    event.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.status(204).send('No Content');
-    });
+    return res.status(200).json(event);
   });
 };
 

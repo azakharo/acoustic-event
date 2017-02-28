@@ -83,7 +83,7 @@ module.exports = Storage = (function() {
         return d.reject(err);
       } else {
         return d.resolve(_.map(result, function(doc) {
-          return _.omit(doc, ['_id']);
+          return doc;
         }));
       }
     });
@@ -98,7 +98,7 @@ module.exports = Storage = (function() {
         return d.reject(err);
       } else {
         if (result != null) {
-          return d.resolve(_.omit(result, ['_id']));
+          return d.resolve(result);
         } else {
           return d.resolve(null);
         }
@@ -118,7 +118,7 @@ module.exports = Storage = (function() {
         if (err) {
           return d.reject(err);
         } else {
-          d.resolve(_.omit(inserted, ['_id']));
+          d.resolve(inserted);
           if (_this._maxRecords != null) {
             return process.nextTick(_this._validateMaxRecords.bind(_this));
           }

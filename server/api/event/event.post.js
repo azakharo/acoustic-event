@@ -72,7 +72,7 @@ module.exports = function(req, res) {
     deviceName = param;
 
     // Check duration
-    paramName = 'info.duration';
+    paramName = 'event.info.duration';
     param = reqParams[paramName];
     if (!param) {
       //return sendMsgParamMissing(res, paramName);
@@ -86,7 +86,7 @@ module.exports = function(req, res) {
     }
 
     // Check signal level
-    paramName = 'info.signal_level';
+    paramName = 'event.info.signal_level';
     param = reqParams[paramName];
     if (!param) {
       //return sendMsgParamMissing(res, paramName);
@@ -100,7 +100,7 @@ module.exports = function(req, res) {
     }
 
     // Check direction
-    paramName = 'info.direction';
+    paramName = 'event.info.direction';
     param = reqParams[paramName];
     if (!param) {
       //return sendMsgParamMissing(res, paramName);

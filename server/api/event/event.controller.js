@@ -62,8 +62,11 @@ exports.destroy = function(req, res) {
 
 // Deletes all events from the DB.
 exports.destroyAll = function(req, res) {
-  Event.find({}).remove(function () {
-    return res.status(204).send('No Content');
+  req.app.locals.storage.remove({})
+  .then ((events) => {
+    if(err) { return handleError(res, err); }
+    if(!events) { return res.status(404).send('Not Found'); }
+    return res.status(200).json(events);
   });
 };
 

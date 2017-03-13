@@ -1,0 +1,6 @@
+videos:
+    - {url: video/stopatlane-1.mp4, class: Stop_at_lane}
+    - {url: video/stopatlane-2.mp4, class: Stop_at_lane}
+    - {url: video/stopatcross.mp4, class: Stop_at_cross}
+current: 2
+curl: 'http://localhost:9000/acoustic_event?event.type=video&event.id=7'

@@ -74,5 +74,9 @@
     //  next-text="Вперёд", previous-text="Назад",
     //  ng-change="onPageNumChanged()")
     .page-buttons
-        button.btn.btn-danger(ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
-          | Очистить протокол
+      button.btn.btn-danger.clear-big-btn(
+      ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
+        | Очистить протокол
+      button.btn.btn-danger.clear-small-btn(
+      ng-click="onClearAllBtnClick()", ng-disabled="!events || events.length === 0")
+        i.fa.fa-trash

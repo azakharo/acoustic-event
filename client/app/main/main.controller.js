@@ -42,6 +42,12 @@ angular.module('projectsApp')
     socket.syncUpdates(MODEL_NAME, $scope.dummyEvents, onNewEvent);
     getData();
 
+    window.viewportUnitsBuggyfill.init();
+
+    window.onresize = debounce(function () {
+      window.viewportUnitsBuggyfill.refresh();
+    }, 500);
+
     //=====================================================
 
 

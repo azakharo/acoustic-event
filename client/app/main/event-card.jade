@@ -8,24 +8,24 @@ ng-class="{'new-event-panel': $ctrl.event.isNew, 'del-event-panel': $ctrl.event.
         alt="{{ $ctrl.getEventImgAlt($ctrl.event) }}")
       .Grid-cell
         .Grid.Grid--center.event-panel-row.event-panel-row-mb1
-          .Grid-cell.bold.nowrap Акустическая тревога
-          .Grid-cell.event-time {{ $ctrl.event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
+          .event-card-item.Grid-cell.bold.nowrap Акустическая тревога
+          .event-card-item.Grid-cell.event-time {{ $ctrl.event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
         .Grid.Grid--center.event-panel-row.event-panel-row-mb1
-          .Grid-cell.Grid-cell-1of4.bold Объект:
-          .Grid-cell.Grid-cell-3of4 {{ $ctrl.OBJECT_NAME }}
+          .event-card-item.Grid-cell-1of4.bold Объект:
+          .event-card-item.Grid-cell-3of4 {{ $ctrl.OBJECT_NAME }}
         .Grid.Grid--center.event-panel-row.event-panel-row-mb1
-          .Grid-cell.Grid-cell-1of4.bold Детектор:
-          .Grid-cell.Grid-cell-3of4 {{ $ctrl.event.device }}
+          .event-card-item.Grid-cell-1of4.bold Детектор:
+          .event-card-item.Grid-cell-3of4 {{ $ctrl.event.device }}
         .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
-          .Grid-cell.bold Событие:
-          .Grid-cell {{ $ctrl.event.class | eventClassFilter }}
-          .Grid-cell Уровень сигнала:
-          .Grid-cell {{ $ctrl.event.signalLevel | number : 2 }}
+          .event-card-item.Grid-cell.bold Событие:
+          .event-card-item.Grid-cell {{ $ctrl.event.class | eventClassFilter }}
+          .event-card-item.Grid-cell Уровень сигнала:
+          .event-card-item.Grid-cell {{ $ctrl.event.signalLevel | number : 2 }}
         .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
-          .Grid-cell Длительность:
-          .Grid-cell {{ $ctrl.event.duration | number : 2 }}
-          .Grid-cell Направление:&nbsp;
-          .Grid-cell {{ $ctrl.event.direction | number : 2 }}
+          .event-card-item.Grid-cell Длительность:
+          .event-card-item.Grid-cell {{ $ctrl.event.duration | number : 2 }}
+          .event-card-item.Grid-cell Направление:&nbsp;
+          .event-card-item.Grid-cell {{ $ctrl.event.direction | number : 2 }}
         audio(ng-src='{{ $ctrl.getDownloadLink($ctrl.event) | trusted }}', controls, preload="none")
           p Ваш браузер не поддерживает audio html5 элемент
     // Del btn

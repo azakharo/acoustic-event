@@ -61,27 +61,9 @@ angular.module('projectsApp')
       }
     };
 
-    function animItemDel(event) {
-      if (event.isNew) {
-        event.isNew = false;
-      }
-      event.isBeingDeleted = true;
-      const elemSelector = `#event${event._id}.del-event-panel`;
-      const animClasses = 'animated slideOutLeft';
-      // apply the animation
-      $timeout(function () {
-        $(elemSelector).addClass(animClasses);
-      }, 0);
-    }
 
     this.onDelBtnClick = function (event) {
-      animItemDel(event);
-      // remove item
-      $timeout(function () {
-        $http.delete('/api/events/' + event._id).success(
-          (result) => this.onEventDeleted(event)
-        );
-      }, 500);
+      this.deleteEvent(event);
     };
 
   })
@@ -90,7 +72,7 @@ angular.module('projectsApp')
     controller: 'EventCardCtrl',
     bindings: {
       event: '=',
-      onEventDeleted: '&'
+      deleteEvent: '&'
     }
   })
   .filter('eventClassFilter', function () {

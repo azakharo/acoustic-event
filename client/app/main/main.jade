@@ -4,7 +4,7 @@
   .page-content
     .event-list-container.p1(ng-show="events.length > 0")
       event-card(ng-repeat="event in events | orderBy:'timestamp':true",
-      event="event", on-event-deleted="onEventDeleted()")
+      event="event", delete-event="deleteEvent(event)")
     .no-events-msg.text-xlarge.p1(ng-hide="!isEventsLoaded || events.length > 0") Нет событий
   footer.page-footer.plr1
     .itc-logo-container

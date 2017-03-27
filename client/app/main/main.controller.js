@@ -18,7 +18,7 @@ angular.module('projectsApp')
     $scope.curPageNum = 1;
     $scope.eventsPerPage = 200;
 
-    socket.syncUpdates(MODEL_NAME, $scope.dummyEvents, onNewEvent);
+    socket.syncUpdates(MODEL_NAME, $scope.dummyEvents, onSocketEvent);
     getData();
 
     window.viewportUnitsBuggyfill.init();
@@ -49,7 +49,7 @@ angular.module('projectsApp')
       getData();
     };
 
-    function onNewEvent(socketEvent, event) {
+    function onSocketEvent(socketEvent, event) {
       if (socketEvent == 'created') {
         if ($scope.curPageNum == 1) {
           event.isNew = true;
@@ -89,8 +89,29 @@ angular.module('projectsApp')
       }
     }
 
-    $scope.onEventDeleted = function () {
-      getData();
+    function animItemDel(event) {
+      if (event.isNew) {
+        event.isNew = false;
+      }
+      event.isBeingDeleted = true;
+      const elemSelector = `#event${event._id}.del-event-panel`;
+      const animClasses = 'animated slideOutLeft';
+      // apply the animation
+      $timeout(function () {
+        $(elemSelector).addClass(animClasses);
+      }, 0);
+    }
+
+
+    $scope.deleteEvent = function (event) {
+      animItemDel(event);
+      // remove item
+      $timeout(function () {
+        $http.delete('/api/events/' + event._id);
+        $timeout(function () {
+          getData();
+        }, 0);
+      }, 500);
     };
 
     $scope.onClearAllBtnClick = function () {

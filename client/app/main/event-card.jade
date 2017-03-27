@@ -1,4 +1,4 @@
-.panel.panel-default.event-panel(id="$ctrl.event{{$ctrl.event._id}}",
+.panel.panel-default.event-panel(id="event{{$ctrl.event._id}}",
 ng-class="{'new-event-panel': $ctrl.event.isNew, 'del-event-panel': $ctrl.event.isBeingDeleted}")
   .panel-body.event-panel-body(ng-show="$ctrl.event.eventType == 'acoustic'")
     .Grid.Grid--center

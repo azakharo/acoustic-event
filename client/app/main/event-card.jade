@@ -1,0 +1,64 @@
+.panel.panel-default.event-panel(id="$ctrl.event{{$ctrl.event._id}}",
+ng-class="{'new-event-panel': $ctrl.event.isNew, 'del-event-panel': $ctrl.event.isBeingDeleted}")
+  .panel-body.event-panel-body(ng-show="$ctrl.event.eventType == 'acoustic'")
+    .Grid.Grid--center
+      .Grid-cell--autoSize.event-icon-container.pr2
+        img.event-icon(
+        ng-src="assets/images/{{ $ctrl.getEventImgFname($ctrl.event) }}",
+        alt="{{ $ctrl.getEventImgAlt($ctrl.event) }}")
+      .Grid-cell
+        .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+          .Grid-cell.bold.nowrap Акустическая тревога
+          .Grid-cell.event-time {{ $ctrl.event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
+        .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+          .Grid-cell.Grid-cell-1of4.bold Объект:
+          .Grid-cell.Grid-cell-3of4 {{ $ctrl.OBJECT_NAME }}
+        .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+          .Grid-cell.Grid-cell-1of4.bold Детектор:
+          .Grid-cell.Grid-cell-3of4 {{ $ctrl.event.device }}
+        .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
+          .Grid-cell.bold Событие:
+          .Grid-cell {{ $ctrl.event.class | eventClassFilter }}
+          .Grid-cell Уровень сигнала:
+          .Grid-cell {{ $ctrl.event.signalLevel | number : 2 }}
+        .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
+          .Grid-cell Длительность:
+          .Grid-cell {{ $ctrl.event.duration | number : 2 }}
+          .Grid-cell Направление:&nbsp;
+          .Grid-cell {{ $ctrl.event.direction | number : 2 }}
+        audio(ng-src='{{ $ctrl.getDownloadLink($ctrl.event) | trusted }}', controls, preload="none")
+          p Ваш браузер не поддерживает audio html5 элемент
+    // Del btn
+    button.btn.btn-success.del-event-btn(ng-click="$ctrl.onDelBtnClick($ctrl.event)")
+      i.fa.fa-check
+    // Download btn
+    a.btn.btn-default.download-event-btn(href='{{ $ctrl.getDownloadLink($ctrl.event) | trusted }}',
+    download='', ng-click="$event.stopPropagation();", role='button')
+      i.fa.fa-download
+  .panel-body.event-panel-body(ng-show="$ctrl.event.eventType == 'video'")
+    .Grid.Grid--center
+      .Grid-cell--autoSize.event-icon-container.pr2
+        img.event-icon(
+        ng-src="assets/images/{{ $ctrl.getEventImgFname($ctrl.event) }}",
+        alt="{{ $ctrl.getEventImgAlt($ctrl.event) }}")
+      .Grid-cell
+        .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+          .Grid-cell.bold.nowrap Тревога видеоаналитики
+          .Grid-cell.event-time {{ $ctrl.event.timestamp | date:'HH:mm:ss &nbsp; dd.MM.yyyy' }}
+        .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+          .Grid-cell.Grid-cell-1of4.bold Объект:
+          .Grid-cell.Grid-cell-3of4 {{ $ctrl.OBJECT_NAME }}
+        .Grid.Grid--center.event-panel-row.event-panel-row-mb1
+          .Grid-cell.Grid-cell-1of4.bold Событие:
+          .Grid-cell.Grid-cell-3of4 {{ $ctrl.event.class | eventClassFilter }}
+        .Grid.Grid--center.Grid--1of4.event-panel-row.event-panel-row-mb1
+        video(ng-src='{{ $ctrl.getDownloadLink($ctrl.event) | trusted }}', controls, preload="metadata",
+        width="320", height="240")
+          p Ваш браузер не поддерживает video html5 элемент
+    // Del btn
+    button.btn.btn-success.del-event-btn(ng-click="$ctrl.onDelBtnClick($ctrl.event)")
+      i.fa.fa-check
+    // Download btn
+    a.btn.btn-default.download-event-btn(href='{{ $ctrl.getDownloadLink($ctrl.event) | trusted }}',
+    download='', ng-click="$event.stopPropagation();", role='button')
+      i.fa.fa-download

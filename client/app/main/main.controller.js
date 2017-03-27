@@ -1,24 +1,5 @@
 'use strict';
 
-const EVENT2IMG = {
-  'siren': {
-    imgFname: 'siren.png',
-    imgAlt: 'сирена'
-  },
-  'shout': {
-    imgFname: 'shout.png',
-    imgAlt: 'крик'
-  },
-  'klaxon': {
-    imgFname: 'klaxon.png',
-    imgAlt: 'клаксон'
-  },
-  'unknown': {
-    imgFname: 'event.png',
-    imgAlt: 'акуст.событие'
-  }
-};
-
 angular.module('projectsApp')
   .controller('MainCtrl', function ($scope, $http, $timeout, socket) {
     ///////////////////////////////////////////////////////
@@ -28,14 +9,12 @@ angular.module('projectsApp')
 
     ///////////////////////////////////////////////////////
 
-
     //=====================================================
     // Startup code
 
     $scope.isEventsLoaded = false;
     $scope.events = [];
     $scope.dummyEvents = [];
-    $scope.OBJECT_NAME = "Светофорный объект №2158";
     $scope.curPageNum = 1;
     $scope.eventsPerPage = 200;
 
@@ -56,7 +35,7 @@ angular.module('projectsApp')
 
     function getData() {
       $http.get(`/api/events?page=${$scope.curPageNum}&pagesize=${$scope.eventsPerPage}`).success(function(result) {
-        console.log(result);
+        //console.log(result);
         $scope.isEventsLoaded = true;
         $scope.events = _.sortBy(result.docs, function (evt) {
           return -evt.timestamp.getTime();
@@ -110,110 +89,17 @@ angular.module('projectsApp')
       }
     }
 
-    $scope.onClearAllBtnClick = function () {
-      $http.delete('/api/events');
+    $scope.onEventDeleted = function () {
       getData();
     };
 
-    function animItemDel(event) {
-      if (event.isNew) {
-        event.isNew = false;
-      }
-      event.isBeingDeleted = true;
-      const elemSelector = `#event${event._id}.del-event-panel`;
-      const animClasses = 'animated slideOutLeft';
-      // apply the animation
-      $timeout(function () {
-        $(elemSelector).addClass(animClasses);
-      }, 0);
-    }
-
-    $scope.onDelBtnClick = function (event) {
-      animItemDel(event);
-      // remove item
-      $timeout(function () {
-        $scope.deleteEvent(event);
-        getData();
-      }, 500);
-
-    };
-
-    $scope.deleteEvent = function(event) {
-      $http.delete('/api/events/' + event._id);
+    $scope.onClearAllBtnClick = function () {
+      $http.delete('/api/events');
+      getData();
     };
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates(MODEL_NAME);
     });
 
-    $scope.getEventImgFname = function (event) {
-      let imgFname = EVENT2IMG['unknown'].imgFname;
-
-      switch (event.class) {
-        case 'siren':
-        case 'klaxon':
-        case 'shout':
-          imgFname = EVENT2IMG[event.class].imgFname;
-          break;
-      }
-
-      return imgFname;
-    };
-
-    $scope.getEventImgAlt = function (event) {
-      let imgFname = EVENT2IMG['unknown'].imgAlt;
-
-      switch (event.class) {
-        case 'siren':
-        case 'klaxon':
-        case 'shout':
-          imgFname = EVENT2IMG[event.class].imgAlt;
-          break;
-      }
-
-      return imgFname;
-    };
-
-    $scope.getDownloadLink = function (event) {
-      if (event.eventType == 'acoustic') {
-        let dt = moment(event.timestamp).format('YYYY-MM-DD-HH-mm-ss');
-        return `/records/record-${dt}-${event.eventType}-${event.class}.wav?detector=${event.device}`;
-      }else{
-        return `/video/${event.url}`;
-      }
-    };
-
-  })
-  .filter('eventClassFilter', function () {
-    return function (serverClass) {
-      let retVal = serverClass;
-
-      switch (serverClass) {
-        case 'siren':
-          retVal = 'сирена';
-          break;
-        case 'klaxon':
-          retVal = 'клаксон';
-          break;
-        case 'shout':
-          retVal = 'крик';
-          break;
-        case 'powstat':
-          retVal = 'уровень шума';
-          break;
-        case 'stopatlane':
-          retVal = 'Остановка ТС в полосе';
-          break;
-        case 'stopatcross':
-          retVal = 'Остановка ТС в зоне перекрестка';
-          break;
-      }
-
-      return retVal;
-    };
-  })
-  .filter('trusted', ['$sce', function ($sce) {
-    return function(url) {
-      return $sce.trustAsResourceUrl(url);
-    };
-  }]);
+  });

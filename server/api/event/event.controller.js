@@ -53,21 +53,27 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
   var id = req.path.slice(1);
   req.app.locals.storage.remove({_id: id})
-  .then ((event) => {
-    if(err) { return handleError(res, err); }
-    if(!event) { return res.status(404).send('Not Found'); }
-    return res.status(200).json(event);
-  });
+  .then (
+    function (removedCount) {
+      if(removedCount === 0) { return res.status(404).send('Not Found'); }
+      req.app.locals.bus.emit('remove', {_id: id});
+      return res.status(200).send("OK");
+    },
+    function (err) {
+      return handleError(res, err);
+    });
 };
 
 // Deletes all events from the DB.
 exports.destroyAll = function(req, res) {
   req.app.locals.storage.remove({})
-  .then ((events) => {
-    if(err) { return handleError(res, err); }
-    if(!events) { return res.status(404).send('Not Found'); }
-    return res.status(200).json(events);
-  });
+  .then (
+    function (removedCount) {
+      return res.status(200).send("OK");
+    },
+    function (err) {
+      return handleError(res, err);
+    });
 };
 
 function handleError(res, err) {

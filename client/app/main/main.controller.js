@@ -21,6 +21,10 @@ angular.module('projectsApp')
     socket.syncUpdates(MODEL_NAME, $scope.dummyEvents, onSocketEvent);
     getData();
 
+
+    //////////////////////////////////////////////////////
+    // Fixed Mobile Safari issue related to viewport units
+
     window.viewportUnitsBuggyfill.init();
 
     window.onresize = debounce(function () {
@@ -77,13 +81,14 @@ angular.module('projectsApp')
         }
       }
       else if (socketEvent == 'deleted') {
-        // Try find the deleted item on current page
         let delEvent = _.find($scope.events, ['_id', event._id]);
         // If found
         if (delEvent) {
-          animItemDel(event);
+          animItemDel(delEvent);
           $timeout(function () {
-            getData();
+            _.remove($scope.events, function (e) {
+              return e === delEvent;
+            })
           }, 500);
         }
       }
@@ -104,19 +109,27 @@ angular.module('projectsApp')
 
 
     $scope.deleteEvent = function (event) {
-      animItemDel(event);
       // remove item
-      $timeout(function () {
-        $http.delete('/api/events/' + event._id);
-        $timeout(function () {
-          getData();
-        }, 0);
-      }, 500);
+      $http.delete('/api/events/' + event._id).then(
+        function (result) {
+        },
+        function (reason) {
+          console.log("Couldn't delete event, reason: ");
+          console.log(reason);
+        }
+      );
     };
 
     $scope.onClearAllBtnClick = function () {
-      $http.delete('/api/events');
-      getData();
+      $http.delete('/api/events').then(
+        function (result) {
+          $scope.events = [];
+        },
+        function (reason) {
+          console.log("Couldn't delete all events, reason: ");
+          console.log(reason);
+        }
+      );
     };
 
     $scope.$on('$destroy', function () {
